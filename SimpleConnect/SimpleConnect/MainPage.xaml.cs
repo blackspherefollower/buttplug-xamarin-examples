@@ -33,6 +33,21 @@ namespace SimpleConnect
                 btnSync.IsEnabled = true;
             });
             _initTask.Wait();
+
+            MessagingCenter.Subscribe<App>(this, "Click", obj => {
+                if (!btnStop.IsEnabled && !btnVibrate.IsEnabled)
+                {
+                    Button_Clicked(this, EventArgs.Empty);
+                }
+                else if (btnStop.IsEnabled)
+                {
+                    Stop_Clicked(this, EventArgs.Empty);
+                }
+                else
+                {
+                    Vibrate_Clicked(this, EventArgs.Empty);
+                }
+            });
         }
 
         async void HandleDeviceAdded(object aObj, DeviceAddedEventArgs aArgs)
